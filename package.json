@@ -1,0 +1,9 @@
+{
+  "name": "simulador-antifraude-g9",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Protótipo educativo de prevenção de golpes para pessoas idosas",
+  "engines": { "node": ">=22" },
+  "scripts": { "start": "node server.js", "test": "node --test" }
+}
