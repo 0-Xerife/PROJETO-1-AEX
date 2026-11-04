@@ -1,34 +1,15 @@
-import type { ApplicationInfo } from '@aex/types';
+﻿import Link from 'next/link';
+import { ExerciseTable, Metrics, PageHeading, ParticipationChart, ResultsChart } from '../components/Report';
+import { adminService } from '../services/service';
 
-const application: ApplicationInfo = { name: 'AEX', phase: 3 };
-
-export default function HomePage() {
-  return (
-    <main>
-      <header>
-        <span className="brand">{application.name}</span>
-        <span>Grupo G9 · Poli USP</span>
-      </header>
-      <section aria-labelledby="title">
-        <p className="eyebrow">Conscientização em segurança da informação</p>
-        <h1 id="title">
-          Aprender a reconhecer.
-          <br />
-          Agir com mais segurança.
-        </h1>
-        <p className="intro">
-          Uma plataforma de educação e prevenção de golpes, com atenção às pessoas idosas e a
-          diferentes níveis de experiência digital.
-        </p>
-        <div className="status">
-          <h2>Base do painel administrativo</h2>
-          <p>
-            Fase {application.phase}: fundação técnica. A gestão de atividades e participantes será
-            construída nas próximas etapas.
-          </p>
-        </div>
-      </section>
-      <footer>Projeto acadêmico AEX · Abner, Bruno e Tulio</footer>
-    </main>
-  );
+export default async function HomePage() {
+  const report = await adminService.getReport();
+  return <>
+    <PageHeading section="Dashboard" title="Visão geral" description="Acompanhe a participação e explore os resultados previstos para as atividades educativas." />
+    <div className="overview-context"><span><strong>Base ilustrativa</strong> · outubro de 2026</span><span>{report.metrics.simulations} simulações disponíveis</span></div>
+    <Metrics report={report} />
+    <div className="report-grid"><section className="panel"><ResultsChart rows={report.exercises} /></section><section className="panel"><ParticipationChart report={report} /></section></div>
+    <section className="panel"><div className="panel-heading"><div><p className="eyebrow">DESEMPENHO EDUCATIVO</p><h2>Resultados por exercício</h2></div><Link href="/resultados">Ver resultados completos →</Link></div><ExerciseTable rows={report.exercises} /></section>
+    <aside className="insight"><strong>Leitura educativa, sem classificação competitiva.</strong><p>Os indicadores ajudam a ilustrar temas que podem ser retomados. Eles não certificam a capacidade de reconhecer golpes na vida real.</p></aside>
+  </>;
 }
