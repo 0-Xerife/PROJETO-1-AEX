@@ -1,182 +1,100 @@
-# Simulador Antifraude — Grupo G9
+# AEX — Simulador Antifraude · Grupo G9
 
-Projeto de AEX para prevenção de golpes e engenharia social, com foco em pessoas idosas. A proposta é uma plataforma de treinamento com interface pensada primeiro para o celular: participantes praticam decisões seguras e administradores organizam simulações educativas.
+Plataforma acadêmica de conscientização e treinamento em segurança da informação, com foco em pessoas idosas e em diferentes níveis de experiência digital. O objetivo é reconhecer sinais de golpes, praticar decisões seguras e receber explicações acolhedoras.
 
 **Integrantes:** Abner Effgen de Almeida, Bruno Vinicius Rodrigues Barroso e Tulio Fogaça Panza.
 
 **Supervisor:** Prof. Paulo Cugnasca.
 
-**Base da proposta:** apresentação inicial “Prevenção de golpes e engenharia social voltada a grupos vulneráveis”, fornecida pela equipe.
+## Estado da implementação
 
-## 1. Problema e objetivo
+**Fase 3 em validação:** a fundação compila, mas o typecheck mobile ainda falha nas declarações das dependências. A fase não está encerrada. Consulte os resultados e o bloqueio em [validation.md](docs/validation.md).
 
-Golpes exploram confiança, urgência, medo e falta de familiaridade com ferramentas digitais. Pedidos de um suposto familiar, falsas centrais bancárias e links que prometem benefícios podem induzir a vítima a transferir dinheiro ou revelar informações.
+A Fase 3 cria a fundação de um monorepo. A API oferece apenas `GET /health/live`; admin e mobile têm telas iniciais. Não há banco, autenticação, gestão administrativa ou treinamentos conectados à API.
 
-O objetivo é desenvolver autonomia e reflexão crítica pela prática: reconhecer sinais de alerta, decidir como agir e receber uma explicação simples após cada decisão. O treinamento deve acolher o participante, sem culpabilizar quem já sofreu um golpe.
+O [protótipo original](examples/prototype/README.md) continua funcional, com três cenários educativos, feedback e resultados armazenados no navegador. Seus oito arquivos foram preservados integralmente. `npm start` continua iniciando esse protótipo.
 
-A KnowBe4 é uma referência funcional para conscientização e gestão de treinamentos. Este projeto terá escopo próprio e reduzido, voltado ao celular, sem reproduzir uma plataforma corporativa completa.
+A proposta original previa uma aplicação web. A evolução aprovada passa a incluir Expo/React Native para participantes e Next.js para administradores. O público-alvo, os cuidados educativos e os registros acadêmicos permanecem.
 
-## 2. Público-alvo
+## Stack e estrutura
 
-### Público principal
+- Mobile: React Native, Expo e Expo Router.
+- Admin: Next.js e React.
+- API: NestJS, REST e TypeScript.
+- Organização: npm workspaces, Turborepo, TypeScript strict, ESLint e Prettier.
+- Planejados para a Fase 4: PostgreSQL, Prisma e Supabase Auth. Storage será considerado quando necessário.
+- Hospedagem planejada: Vercel para admin, Render ou equivalente para API e Supabase para banco/Auth. Nenhum deploy foi configurado.
 
-Pessoas de terceira idade, com referência inicial em adultos de **60 anos ou mais**, especialmente quem usa celular para conversar com familiares, acessar serviços e realizar operações financeiras, mas tem dificuldade para avaliar solicitações suspeitas. Idade não determina habilidade digital: a interface deve atender diferentes níveis de experiência, sem infantilizar os usuários.
-
-**Necessidades:** linguagem direta, letras legíveis, botões grandes, poucas ações por tela, possibilidade de repetir exercícios, explicação de termos técnicos e orientações para verificar solicitações por outro canal.
-
-**Contextos de uso:** prática com familiares, oficinas de inclusão digital e atividades em instituições que atendem idosos. A participação deve ser voluntária e precedida da explicação de que se trata de uma simulação.
-
-### Público secundário e administradores
-
-- Pessoas em letramento digital ou em situação de vulnerabilidade tecnológica, conforme a apresentação.
-- Educadores, facilitadores e integrantes da equipe que selecionam cenários e acompanham dificuldades.
-- Familiares e cuidadores que apoiam a prática, respeitando a autonomia do participante.
-
-### Perfis de referência a validar
-
-| Perfil hipotético | Situação | Necessidade |
-| --- | --- | --- |
-| Participante que usa principalmente mensagens | Suposto filho pede transferência de um número novo | Confirmar a identidade pelo contato já conhecido |
-| Participante que usa serviços bancários | Suposta central solicita código por telefone | Encerrar a ligação e procurar o canal oficial |
-| Facilitador de oficina | Grupo com diferentes níveis de experiência digital | Selecionar o tema e revisar dificuldades |
-
-São hipóteses de projeto, não resultados de entrevistas. A equipe deverá validá-las com pessoas do público-alvo, documentando consentimento e sugestões sem expor dados pessoais. A apresentação registra contato parcial em ambientes de estágio e intenção de incluir familiares; não estabelece validação concluída.
-
-## 3. Especificação do projeto
-
-### 3.1 Visão e fluxo
-
-Aplicação web responsiva com duas áreas:
-
-1. **Administrador:** escolhe o tipo de golpe, define o título do treinamento e acompanha resultados.
-2. **Participante:** abre o treinamento ativo, lê uma situação simulada, escolhe uma ação e recebe feedback educativo imediato.
-
-Após a resposta, a aplicação destaca os sinais de alerta, explica a decisão e registra a tentativa. O participante pode repetir a prática; o administrador usa o resumo para orientar atividades futuras.
-
-As situações aparecem somente dentro da aplicação. Não são enviados SMS, mensagens ou chamadas reais. Links são textos ilustrativos, sem navegação externa. Nenhum exercício pede senhas, códigos bancários ou transferências.
-
-### 3.2 Escopo do MVP planejado
-
-- Cenários de falso familiar em aplicativo de mensagens, SMS com link suspeito e falsa central bancária.
-- Configuração de treinamentos pelo administrador.
-- Alternativas de ação e explicação imediata dos sinais de alerta.
-- Histórico de tentativas e resumo de decisões seguras por treinamento.
-- Guia prático de resposta a incidentes.
-- Interface utilizável no celular, por teclado e com leitores de tela.
-
-**Evoluções posteriores:** autenticação e permissões reais, identificação consentida de participantes, banco de dados, campanhas para grupos, desafios semanais/mensais, áudio para ligações e exportação de relatórios. Aplicativos nativos Android/iOS ficam fora da primeira entrega.
-
-### 3.3 Requisitos funcionais e critérios de aceite
-
-| ID | Requisito | Critério de aceite |
-| --- | --- | --- |
-| RF01 | Separar áreas de participante e administrador | Ambas acessíveis no protótipo; a versão com servidor deverá exigir autorização administrativa |
-| RF02 | Configurar treinamento | Título obrigatório e tipo selecionado; treinamento salvo aparece para o participante |
-| RF03 | Apresentar simulação segura | Exercício identificado como simulação, sem contatos, pagamentos ou links externos acionáveis |
-| RF04 | Receber decisão | Cada alternativa gera feedback coerente; cada tentativa aceita somente uma resposta |
-| RF05 | Explicar sinais de alerta | Feedback explica a ação e sugere uma forma segura de verificar a situação |
-| RF06 | Registrar tentativa | Armazena treinamento, cenário, alternativa, resultado e data; recarregar mantém dados quando o armazenamento está disponível |
-| RF07 | Exibir resultados | Totais de tentativas e decisões seguras correspondem aos registros, com resumo por treinamento |
-| RF08 | Disponibilizar guia | Orienta a interromper contato, preservar evidências e procurar canais oficiais |
-| RF09 | Repetir exercício | Nova prática após feedback gera uma nova tentativa |
-
-### 3.4 Requisitos não funcionais
-
-| ID | Requisito | Verificação planejada |
-| --- | --- | --- |
-| RNF01 | Adaptação ao celular | Uso a partir de 360 px sem rolagem horizontal |
-| RNF02 | Legibilidade e acessibilidade | Texto base de 18 px, contraste conforme WCAG 2.2 AA, controles de pelo menos 44 px, foco visível e uso por teclado; validação manual com leitores de tela e público-alvo ainda necessária |
-| RNF03 | Linguagem acolhedora | Explicações simples, sem culpa e sem depender apenas de cor |
-| RNF04 | Privacidade | Protótipo sem nome, telefone ou credenciais; futura coleta exige finalidade, base legal, retenção e acesso definidos |
-| RNF05 | Segurança | Não executar ataques, enviar comunicações externas ou armazenar segredos |
-| RNF06 | Recuperação de falhas | Falha no armazenamento gera aviso e permite continuar a prática na sessão |
-
-### 3.5 Modelo de dados
-
-| Entidade | Campos | Relações |
-| --- | --- | --- |
-| Treinamento | ID, título, cenário, data de criação | Possui tentativas; o último salvo fica ativo no protótipo |
-| Cenário | ID, tipo, mensagem, alternativas, explicação | Catálogo educativo incluído na aplicação |
-| Tentativa | ID, ID e título do treinamento, cenário, alternativa, decisão segura, data | Pertence a um treinamento; não identifica uma pessoa |
-
-### 3.6 Arquitetura e limites atuais
-
-O protótipo usa **HTML, CSS e JavaScript**, servido por um servidor HTTP local em Node.js, sem dependências externas. O estado é salvo no `localStorage` do navegador. A troca entre participante e administrador demonstra o fluxo, mas **não oferece autenticação ou isolamento de dados**.
-
-Os dados não são compartilhados entre dispositivos e podem ser apagados ao limpar os dados do navegador. O painel conta tentativas, não pessoas únicas. Apenas um treinamento fica ativo por vez. A falsa ligação é representada por texto, sem áudio.
-
-Para uma versão compartilhada serão necessários API, banco de dados e autorização no servidor. Hospedagem, política de dados e critérios de segurança devem ser definidos antes de um piloto com dados pessoais.
-
-## 4. Planejamento e avaliação
-
-Cronograma proposto na apresentação para o terceiro quadrimestre de 2026:
-
-| Período | Etapa | Entregas previstas |
-| --- | --- | --- |
-| Outubro | Levantamento e design | Mapear golpes, detalhar público, especificar requisitos, prototipar interface e validar arquitetura |
-| Novembro | Desenvolvimento e conteúdo | Cenários interativos, estudos de caso e desafios periódicos |
-| Dezembro | Aplicação prática e avaliação | Testes de usabilidade, métricas e relatório final |
-
-**Previsão:** 60 horas por integrante, total de 180 horas da equipe. Essa previsão é distinta das horas realizadas abaixo.
-
-**Avaliação planejada:** observar conclusão de exercícios sem ajuda, compreensão do feedback e reconhecimento de canais seguros. Comparar decisões ao longo das atividades sem tratar a taxa de acerto como diagnóstico individual. Testes com usuários e alinhamento com o supervisor ainda precisam ser registrados.
-
-## 5. Registro semanal de atividades e horas
-
-Atualizar toda semana, acrescentando registros sem substituir os anteriores. Incluir descrição individual das atividades, horas efetivamente realizadas, evidências e dificuldades.
-
-### Semana de 12 a 18 de outubro de 2026
-
-Registro inicial de **2 horas por integrante**, conforme informado pela equipe. A distribuição individual das atividades deve ser detalhada pelos membros; não são atribuídas tarefas que não foram confirmadas.
-
-| Integrante | Horas informadas | Detalhamento individual |
-| --- | ---: | --- |
-| Abner Effgen de Almeida | 2 h | A complementar pelo integrante |
-| Bruno Vinicius Rodrigues Barroso | 2 h | A complementar pelo integrante |
-| Tulio Fogaça Panza | 2 h | A complementar pelo integrante |
-| **Total da semana** | **6 h** | |
-
-**Entregas desta atualização:** público-alvo, especificação inicial e primeiro protótipo de participante/administração neste repositório. Essas entregas não comprovam autoria ou divisão individual das horas.
-
-| Integrante | Acumulado registrado | Previsão total |
-| --- | ---: | ---: |
-| Abner Effgen de Almeida | 2 h | 60 h |
-| Bruno Vinicius Rodrigues Barroso | 2 h | 60 h |
-| Tulio Fogaça Panza | 2 h | 60 h |
-| **Equipe** | **6 h** | **180 h** |
-
-### Modelo para as próximas semanas
-
-Copiar e preencher com o período da semana:
-
-| Integrante | Atividades realizadas | Horas | Evidência (commit, documento ou reunião) |
-| --- | --- | ---: | --- |
-| Abner Effgen de Almeida | A preencher | — | — |
-| Bruno Vinicius Rodrigues Barroso | A preencher | — | — |
-| Tulio Fogaça Panza | A preencher | — | — |
-
-Acrescentar entregas, dificuldades, próximos passos e novo acumulado.
-
-## 6. Executar e verificar o protótipo
-
-Requisito: **Node.js 22 ou superior**. Não há pacotes a instalar.
-
-```sh
-cd /workspace/PROJETO-1-AEX
-npm start
+```text
+apps/                  # api, admin, mobile
+packages/              # types, validation, config
+examples/prototype/    # versão original independente
+docs/                  # documentação técnica e acadêmica
+scripts/               # verificações do repositório
 ```
 
-Fora da nuvem, use o diretório onde o repositório foi clonado. Porta padrão: `3000`. Para outra porta: `PORT=3001 npm start`. Acesse o servidor pelo navegador no seu ambiente de desenvolvimento.
+## Pré-requisitos e instalação
+
+Ambiente de referência: Node.js **22.14.0**, npm **10.9.2**. Os manifests aceitam Node 22 a partir de 22.14 e npm 10 a partir de 10.9.2. Use a mesma combinação da equipe para reproduzir os resultados; versões exatas das dependências estão no lockfile.
+
+Na raiz do projeto:
 
 ```sh
+npm ci
+npm run build:packages
+```
+
+Não há instalação global de ferramentas nem instalação separada dentro dos apps. Há apenas um `package-lock.json`.
+
+No PowerShell, se a política local impedir `npm.ps1`, utilize `npm.cmd` no lugar de `npm`. Não é necessário alterar a política de execução.
+
+## Desenvolvimento
+
+| Comando              | Serviço                                        |
+| -------------------- | ---------------------------------------------- |
+| `npm start`          | Protótipo em http://localhost:3000             |
+| `npm run dev:api`    | API em http://localhost:3002/health/live       |
+| `npm run dev:admin`  | Admin em http://localhost:3001                 |
+| `npm run dev:mobile` | Expo/Metro; abrir pelo QR code ou emulador     |
+| `npm run dev`        | API, admin e Expo com reconstrução dos pacotes |
+
+A API retorna `{"status":"ok"}`. Essa rota verifica que o processo responde, não a disponibilidade de serviços externos.
+
+No mobile, a exportação de bundles não produz APK/IPA. O simulador iOS requer macOS; Android requer aparelho ou emulador configurado. Consulte [desenvolvimento](docs/development.md).
+
+## Ambiente, banco e migrations
+
+A Fase 3 funciona sem criar arquivos locais de ambiente. Cada app possui um `.env.example`:
+
+- API: `PORT`, opcional, padrão 3002.
+- Admin: `NEXT_PUBLIC_API_URL`, reservado para integração futura.
+- Mobile: `EXPO_PUBLIC_API_URL`, reservado para integração futura.
+
+Não há variáveis de banco, chaves Supabase, schema Prisma ou comandos de migrations nesta fase. A estratégia futura está em [database.md](docs/database.md). Não coloque segredos em variáveis públicas.
+
+## Verificações
+
+```sh
+npm run verify:prototype
+npm run format:check
+npm run typecheck
+npm run lint
 npm test
+npm run build
+npm run mobile:doctor
 ```
 
-Os testes verificam o catálogo, o registro de respostas e os resumos. Verificação manual do fluxo:
+`npm test` inclui os seis testes originais, os testes de validação e os testes HTTP da fundação Nest. O build mobile exporta os bundles Android e iOS.
 
-1. Abrir **Administrador**, selecionar um tipo e salvar um treinamento.
-2. Voltar a **Participante**, responder e conferir a explicação.
-3. Consultar resultados e recarregar para verificar persistência.
-4. Repetir com os três tipos e conferir teclado e layout de celular.
+## Documentação e registros acadêmicos
 
-O protótipo é uma base de desenvolvimento; não substitui validação de acessibilidade com usuários nem infraestrutura de produção.
+- [Arquitetura](docs/architecture.md)
+- [Desenvolvimento e execução](docs/development.md)
+- [Banco — planejamento da próxima fase](docs/database.md)
+- [Migração e recuperação](docs/migration-plan.md)
+- [Versões do pré-voo](docs/versions.md)
+- [Validação da fundação](docs/validation.md)
+- [Proposta, público-alvo e requisitos acadêmicos](docs/projeto-academico.md)
+- [Registro de atividades e horas](docs/registro-de-horas.md)
+
+O registro existente contém **2 horas por integrante, total de 6 horas**, na semana de 12 a 18/10/2026. A previsão de 60 horas por integrante é distinta das horas realizadas. Nenhuma hora foi atribuída à migração automaticamente.
