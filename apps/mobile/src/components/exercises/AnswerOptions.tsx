@@ -1,32 +1,34 @@
 import { useEffect } from 'react';
 import { Animated, Pressable, StyleSheet, Text, View, useAnimatedValue } from 'react-native';
-import type { ExerciseOption } from '../../exercises/types';
+import type { ExerciseOption } from '@aex/types/training';
 import { colors, radius, textStyles } from '../../theme';
 import { Icon } from '../Icon';
 import { uiStyles } from '../ui';
 
-export function AnswerOptions({ options, selectedId, onSelect, reducedMotion }: {
+export function AnswerOptions({ options, selectedId, onSelect, reducedMotion, disabled = false }: {
   options: readonly ExerciseOption[];
   selectedId: string | null;
   onSelect: (id: string) => void;
   reducedMotion: boolean | null;
+  disabled?: boolean;
 }) {
   return (
     <View accessibilityRole="radiogroup" accessibilityLabel="Alternativas de resposta" style={uiStyles.section}>
       {options.map((option, index) => (
         <AnswerOption key={option.id} option={option} index={index} selected={option.id === selectedId}
-          onSelect={onSelect} reducedMotion={reducedMotion} />
+          onSelect={onSelect} reducedMotion={reducedMotion} disabled={disabled} />
       ))}
     </View>
   );
 }
 
-function AnswerOption({ option, index, selected, onSelect, reducedMotion }: {
+function AnswerOption({ option, index, selected, onSelect, reducedMotion, disabled }: {
   option: ExerciseOption;
   index: number;
   selected: boolean;
   onSelect: (id: string) => void;
   reducedMotion: boolean | null;
+  disabled: boolean;
 }) {
   const highlight = useAnimatedValue(selected ? 1 : 0);
   useEffect(() => {
@@ -43,7 +45,8 @@ function AnswerOption({ option, index, selected, onSelect, reducedMotion }: {
 
   return (
     <Pressable accessibilityRole="radio"
-      accessibilityState={{ checked: selected }}
+      accessibilityState={{ checked: selected, disabled }}
+      disabled={disabled}
       accessibilityLabel={`Alternativa ${index + 1}. ${option.label}`}
       onPress={() => onSelect(option.id)}
       style={({ pressed }) => [styles.option, (selected || pressed) && styles.selected]}>

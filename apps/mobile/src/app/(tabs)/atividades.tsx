@@ -3,11 +3,10 @@ import { Text, View } from 'react-native';
 import { Badge, Button, Card, Header, Screen, uiStyles } from '../../components/ui';
 import { useProgress } from '../../progression/ProgressProvider';
 import { LocalProgressNote } from '../../components/LearningRewards';
-import { exercises } from '../../data/exercises';
 import { textStyles } from '../../theme';
 
 export default function ActivitiesScreen() {
-  const { modules, recommendedModule, isCompleted } = useProgress();
+  const { modules, recommendedModule, isCompleted, exercises } = useProgress();
   return (
     <Screen>
       <Header eyebrow="ATIVIDADES" title="Um pouco a cada dia"

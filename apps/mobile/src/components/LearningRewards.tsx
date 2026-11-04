@@ -7,7 +7,7 @@ import { Badge, Card, ProgressBar, uiStyles } from './ui';
 export function PerformanceSummary({ summary }: { summary: ReturnType<typeof getSummary> }) {
   return (
     <Card>
-      <Text accessibilityRole="header" style={textStyles.heading}>Seu aprendizado nesta sessão</Text>
+      <Text accessibilityRole="header" style={textStyles.heading}>Seu aprendizado neste aparelho</Text>
       <ProgressBar label="Exercícios concluídos" completed={summary.completed} total={summary.total} />
       <Text style={textStyles.body}>{summary.points} pontos de aprendizagem</Text>
       <Text style={textStyles.detail}>Nas primeiras conclusões: {summary.correct} respostas corretas e {summary.reviewed} oportunidades de aprender com a explicação.</Text>
@@ -33,5 +33,5 @@ export function Achievements() {
 }
 
 export function LocalProgressNote() {
-  return <Text style={uiStyles.note}>Progresso demonstrativo mantido apenas nesta sessão. Ao reiniciar o aplicativo, pontos e conquistas começam novamente. Pratique no seu ritmo, sem obrigação diária.</Text>;
+  return <Text style={uiStyles.note}>Progresso e histórico demonstrativos salvos neste aparelho, inclusive ao fechar o aplicativo. Não há sincronização com uma conta. Limpar os dados do aplicativo pode apagar esse histórico. Pratique no seu ritmo, sem obrigação diária.</Text>;
 }

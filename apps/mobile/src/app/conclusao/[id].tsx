@@ -4,9 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Achievements, LocalProgressNote, PerformanceSummary } from '../../components/LearningRewards';
 import { Badge, Button, Header, Screen } from '../../components/ui';
 import { FeedbackSymbol, useExerciseReducedMotion } from '../../components/exercises/motion';
-import { exercises } from '../../data/exercises';
 import { useProgress } from '../../progression/ProgressProvider';
-import { getModuleProgress } from '../../progression/progression';
 import { colors, textStyles } from '../../theme';
 
 export default function ModuleCompletionScreen() {
@@ -14,12 +12,12 @@ export default function ModuleCompletionScreen() {
   const { state, modules } = useProgress();
   const reducedMotion = useExerciseReducedMotion();
   const module = modules.find((item) => item.id === id);
-  const summary = getModuleProgress(state, exercises, id);
+  const summary = state.modules.find((item) => item.moduleId === id);
 
   return (
     <SafeAreaView edges={['bottom']} style={{ flex: 1, backgroundColor: colors.background }}>
       <Screen>
-        {module && summary.isComplete ? (
+        {module && summary?.isComplete ? (
           <>
             <FeedbackSymbol name="star" reducedMotion={reducedMotion} celebrate />
             <Badge label="Módulo concluído" icon="check" />

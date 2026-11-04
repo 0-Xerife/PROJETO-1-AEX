@@ -4,12 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Badge, Button, Card, Header, ProgressBar, Screen, uiStyles } from '../../components/ui';
 import { useProgress } from '../../progression/ProgressProvider';
 import { LocalProgressNote } from '../../components/LearningRewards';
-import { exercises } from '../../data/exercises';
 import { colors, textStyles } from '../../theme';
 
 export default function ActivityScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { modules, isCompleted } = useProgress();
+  const { modules, isCompleted, exercises } = useProgress();
   const module = modules.find((item) => item.id === id);
   const availableExercises = exercises.filter((exercise) => exercise.moduleId === id);
   const goBack = () => {

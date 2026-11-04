@@ -5,6 +5,7 @@ import { learner } from '../../data/learning';
 import { useProgress } from '../../progression/ProgressProvider';
 import { Achievements, PerformanceSummary, LocalProgressNote } from '../../components/LearningRewards';
 import { colors, textStyles } from '../../theme';
+import { AttemptHistory } from '../../components/AttemptHistory';
 
 export default function ProfileScreen() {
   const { summary: progress } = useProgress();
@@ -20,6 +21,7 @@ export default function ProfileScreen() {
       </Card>
       <PerformanceSummary summary={progress} />
       <Achievements />
+      <AttemptHistory />
       <LocalProgressNote />
     </Screen>
   );

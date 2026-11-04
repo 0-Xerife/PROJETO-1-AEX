@@ -1,24 +1,8 @@
-export type ExerciseOption = {
-  id: string;
-  label: string;
-  explanation: string;
-};
+import type { Exercise as PublicExercise, ExerciseOption as PublicOption } from '@aex/types/training';
 
-export type Exercise = {
-  id: string;
-  moduleId: string;
-  category: 'phishing' | 'social-engineering';
-  title: string;
-  introduction: string;
-  scenario: {
-    kind: 'sms' | 'link' | 'call';
-    label: string;
-    sender: string;
-    message: string;
-    address?: string;
-  };
-  question: string;
+// Gabarito restrito ao mock local; não faz parte do contrato público da API.
+export type ExerciseOption = PublicOption & { explanation: string };
+export type Exercise = Omit<PublicExercise, 'options'> & {
   options: readonly ExerciseOption[];
   correctOptionId: string;
-  takeaway: string;
 };

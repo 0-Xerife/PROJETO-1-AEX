@@ -2,15 +2,14 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ExercisePlayer } from '../../components/exercises/ExercisePlayer';
 import { Button, Header, Screen } from '../../components/ui';
-import { exercises } from '../../data/exercises';
 import { colors } from '../../theme';
 import { useProgress } from '../../progression/ProgressProvider';
 
 export default function ExerciseScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { exercises, isCompleted } = useProgress();
   const index = exercises.findIndex((exercise) => exercise.id === id);
   const exercise = exercises[index];
-  const { isCompleted } = useProgress();
   const next = exercises.find((item) => item.moduleId === exercise?.moduleId && item.id !== id && !isCompleted(item.id));
   const exit = () => router.replace('/atividades');
 

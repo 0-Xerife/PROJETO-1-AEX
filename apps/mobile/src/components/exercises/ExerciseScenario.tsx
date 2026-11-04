@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import type { Exercise } from '../../exercises/types';
+import type { Exercise } from '@aex/types/training';
 import { colors, radius, textStyles } from '../../theme';
 import { Badge, Card } from '../ui';
 
