@@ -6,7 +6,8 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <StatusBar style="dark" />
-      <Stack screenOptions={{ headerShown: false }} />
+      {/* Transições estáticas também respeitam a preferência de redução de movimento. */}
+      <Stack screenOptions={{ headerShown: false, animation: 'none' }} />
     </SafeAreaProvider>
   );
 }

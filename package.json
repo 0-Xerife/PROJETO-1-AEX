@@ -39,5 +39,8 @@
     "prettier": "3.9.10",
     "turbo": "2.11.10",
     "typescript": "6.0.3"
+  },
+  "dependencies": {
+    "react-native-web": "^0.21.4"
   }
 }

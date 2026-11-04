@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit && tsc -p tsconfig.tools.json --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test:exercises": "node --experimental-strip-types --test tests/exercises.test.mjs",
     "doctor": "expo-doctor",
     "patch:dependencies": "patch-package --error-on-fail"
   },
@@ -28,7 +29,8 @@
     "react": "19.3.0",
     "react-native": "0.88.0",
     "react-native-safe-area-context": "5.10.1",
-    "react-native-screens": "4.30.0"
+    "react-native-screens": "4.30.0",
+    "react-native-web": "^0.21.4"
   },
   "devDependencies": {
     "@aex/config": "0.1.0",
