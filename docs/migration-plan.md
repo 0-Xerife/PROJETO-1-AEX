@@ -1,5 +1,10 @@
 # Migração da Fase 3
 
+**Registro histórico, não procedimento a executar nesta consolidação.** O estado
+atual está no [README principal](../README.md). As menções abaixo à Fase 4 como
+destino de banco/autenticação descrevem o planejamento daquela época. A Fase 4
+posterior priorizou experiência e mocks; infraestrutura continua pendente.
+
 ## Escopo
 
 Aprovação limitada à fundação: preservar protótipo, criar monorepo e apps mínimos, configurar qualidade e documentar. Banco, autenticação e módulos de negócio ficam para a Fase 4.

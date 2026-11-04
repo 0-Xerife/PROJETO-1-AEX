@@ -1,5 +1,9 @@
 # Treinamento demonstrativo — persistência local
 
+Referência técnica específica do mobile. A apresentação oficial, o histórico das
+fases, as horas e o estado consolidado estão no [README principal](../../README.md).
+Este documento detalha a etapa 4.5 e a fronteira de integração futura.
+
 Os contratos `Exercise`, `ExerciseAttempt`, `ExerciseResult`, `TrainingProgress`,
 `Achievement` e `ParticipantSummary` ficam em `@aex/types/training` (importação
 somente de tipos). `TrainingService` define a fronteira entre telas e dados.

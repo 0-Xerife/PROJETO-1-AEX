@@ -1,5 +1,9 @@
 # Proposta acadêmica preservada
 
+A documentação oficial atual está no [README principal](../README.md). O texto
+histórico abaixo é mantido como fonte da primeira entrega, incluindo autoria e
+requisitos originais; não deve substituir o registro atual das fases e da equipe.
+
 Este documento preserva a proposta da primeira entrega. Os trechos de arquitetura e escopo abaixo descrevem o protótipo original; a evolução aprovada para mobile e admin está em [architecture.md](architecture.md). Não representam funcionalidades já implementadas no monorepo.
 
 # Simulador Antifraude — Grupo G9

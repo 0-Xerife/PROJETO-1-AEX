@@ -1,5 +1,11 @@
 # Validação da fundação — retomada em 21/10/2026
 
+**Leitura histórica:** o checkpoint abaixo descreve a Fase 3 naquela retomada.
+A implementação posterior da Fase 4 foi solicitada em seis etapas, sem registrar
+a resolução do bloqueio de tipos mobile. O estado atual está no
+[README principal](../README.md#12-testes-e-validações-registradas) e no adendo ao
+final deste documento. A consolidação de 03/11/2026 não executou novas verificações.
+
 **Fase 3 ainda aberta.** A retomada começou na validação da subetapa 3.3. O typecheck mobile impede sua conclusão e, portanto, o encerramento da subetapa 3.4. Este documento registra o checkpoint; não autoriza avançar à Fase 4.
 
 ## Estado de entrada
@@ -78,3 +84,42 @@ Próximo trabalho necessário: obter uma combinação de releases corrigidas, ou
 Referências dos advisories identificados: [braces](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm), [node-forge](https://github.com/advisories/GHSA-86w9-cpqp-85rv), [sprintf-js](https://github.com/advisories/GHSA-hp3w-g68c-fv3c), [uuid](https://github.com/advisories/GHSA-w5hq-g745-h8pq).
 
 Nenhum commit, push, merge, PR ou alteração da main foi realizado. Banco, Prisma, Supabase e módulos de negócio continuam fora desta fase.
+
+## Adendo — execuções registradas durante a Fase 4
+
+Este adendo consolida os resultados das ferramentas apresentados na sequência
+assistida de implementação das etapas 4.1 a 4.6. Não foram extraídos de novas
+execuções, nem inferidos da existência de arquivos de teste. Os resultados abaixo
+foram registrados na conversa de desenvolvimento; os logs completos não foram
+adicionados ao repositório nesta tarefa. Os commits citados no README identificam
+entregas, não substituem os registros de execução nem comprovam suas horas.
+
+| Etapa | Verificação executada anteriormente | Resultado registrado |
+| --- | --- | --- |
+| 4.1 | Typecheck e lint mobile | Lint aprovado; typecheck bloqueado nas dependências/testes de tipos |
+| 4.2 | `test:exercises` e lint mobile | 18 testes aprovados; lint aprovado |
+| 4.3 | `test:exercises`, typecheck e lint mobile | 18 testes e lint aprovados; typecheck manteve bloqueios existentes após correções da etapa |
+| 4.4 | `test:progression`, typecheck e lint mobile | 11 testes e lint aprovados; typecheck manteve bloqueios existentes |
+| 4.5 | `test:training`, `test:progression`, `test:exercises` mobile | Respectivamente 14, 11 e 18 testes aprovados; 43 casos no conjunto |
+| 4.5 | Typecheck/lint de `@aex/types`; lint mobile | Aprovados |
+| 4.5 | Typecheck mobile | Falhou com erros já existentes de Expo Router/Expo Server e `test-types/dependencies.ts`; nenhum erro novo no código alterado na verificação final |
+| 4.6 | `test:admin`, typecheck e lint admin | 11 testes, typecheck e lint aprovados, incluindo repetição das duas últimas verificações após ajuste final dos filtros |
+
+Os testes mobile de etapas sucessivas se sobrepõem. Não somar 18 + 11 + 43
+como casos independentes. Os 43 casos mobile e 11 admin foram verificados nas
+respectivas etapas, não em uma nova suíte conjunta desta consolidação.
+
+### Limites da evidência
+
+- Não houve teste em aparelho físico/simulador do mobile nestas etapas.
+- Recuperação local foi testada por recriação do serviço com armazenamento
+  injetado; isso não comprova o adaptador nativo em Android/iOS.
+- Animações e acessibilidade não foram validadas com o público-alvo.
+- O admin não recebeu validação visual no navegador durante a etapa 4.6.
+- Não houve avaliação de usuários reais, sincronização mobile/admin ou teste de
+  backend de negócio, banco ou autenticação.
+- Os resultados de build, Expo Doctor e auditoria de dependências no checkpoint
+  anterior são históricos. Não foram repetidos nem atualizados na Fase 4 aqui
+  registrada ou na consolidação documental.
+- Permanecem a pendência de typecheck mobile e a necessidade de verificação
+  técnica própria antes de declarar a plataforma integralmente validada.

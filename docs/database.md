@@ -1,5 +1,12 @@
 # Banco de dados — planejamento
 
+Contexto atual: [README principal](../README.md#7-arquitetura-e-tecnologias).
+Banco e autenticação também **não foram implementados na Fase 4 efetivamente
+desenvolvida**, cujo escopo passou a ser experiência e mocks. As referências
+abaixo a “fase seguinte” e “Fase 4” preservam o plano anterior da infraestrutura;
+não constituem compromisso de versão ou entrega atual. A persistência local
+mobile não equivale a PostgreSQL/Prisma nem a sincronização entre aplicações.
+
 **Não implementado na Fase 3.** Não existem schema Prisma, migrations, conexão, seed ou dependências de banco instaladas.
 
 A fase seguinte prevê PostgreSQL no Supabase e Prisma na raiz:

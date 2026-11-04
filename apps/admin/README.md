@@ -1,5 +1,8 @@
 # AEX Admin — demonstração
 
+Referência técnica da etapa 4.6. A apresentação oficial, o histórico das fases e
+o registro de horas estão centralizados no [README principal](../../README.md).
+
 Páginas: `/` (Dashboard), `/participantes` (busca e filtro por situação),
 `/simulacoes` (catálogo e cenários expansíveis) e `/resultados` (tabelas e gráficos).
 Todas exibem **Dados demonstrativos** e esclarecem a origem fictícia dos registros.

@@ -1,8 +1,14 @@
 # Desenvolvimento
 
+Referência operacional complementar ao [README oficial](../README.md).
+O mobile e o admin agora oferecem a experiência demonstrativa da Fase 4;
+os clientes não dependem de uma API de negócio ativa e não compartilham dados.
+As instruções são para execução futura: nada foi instalado ou executado durante
+a consolidação documental.
+
 ## Instalação reproduzível
 
-Use Node 22.14.0 e npm 10.9.2. Na raiz: `npm ci`. As versões diretas são exatas e o lockfile fixa a árvore transitiva. Para adicionar uma dependência a um app, use `npm install <pacote>@<versão> --workspace=@aex/<app>` na raiz.
+Use Node 22.14.0 e npm 10.9.2. Na raiz: `npm ci`. O lockfile registra a árvore resolvida; nem toda especificação direta é exata (por exemplo, react-native-web usa uma faixa). Para adicionar uma dependência em tarefa técnica autorizada, use `npm install <pacote>@<versão> --workspace=@aex/<app>` na raiz.
 
 No PowerShell, use `npm.cmd` caso `npm.ps1` seja bloqueado. Os scripts usam ferramentas locais declaradas nos manifests; nenhum CLI global é necessário.
 
@@ -47,7 +53,20 @@ npm run mobile:doctor
 
 `npm run format` e `npm run lint:fix` modificam código e são ações explícitas. O protótipo está excluído dessas modificações automáticas.
 
-`npm test` não depende de banco ou Supabase. Os testes HTTP constroem a aplicação Nest real; os testes de schema verificam limites e rejeitam valores ambíguos. Não existem ainda suítes funcionais de login ou treinamentos.
+`npm test` não depende de banco ou Supabase. Os testes HTTP constroem a aplicação Nest real; os testes de schema verificam limites e rejeitam valores ambíguos. Não há suíte de login ou treinamento integrado ao backend.
+
+A Fase 4 adicionou comandos focados, que não são substituídos por `npm test`:
+
+```sh
+npm run test:exercises --workspace=@aex/mobile
+npm run test:progression --workspace=@aex/mobile
+npm run test:training --workspace=@aex/mobile
+npm run test:admin --workspace=@aex/admin
+```
+
+São testes da avaliação demonstrativa, progressão, serviço/persistência injetada
+e agregações administrativas. Resultados registrados e limites estão no
+[README, seção 12](../README.md#12-testes-e-validações-registradas).
 
 ## Preservação
 

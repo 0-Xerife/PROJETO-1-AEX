@@ -1,5 +1,14 @@
 # Matriz de versões — pré-voo de 21/10/2026
 
+Documento histórico preservado. A stack atual consolidada está no
+[README principal](../README.md#7-arquitetura-e-tecnologias). Não houve nova
+consulta ao npm, instalação ou análise de dependências nesta revisão documental.
+
+**Inconsistência histórica sinalizada:** o texto abaixo menciona TypeScript 5.9.3
+como versão aprovada, enquanto a tabela, o registro de retomada e os manifests
+consultados indicam 6.0.3 nos workspaces. Mantém-se o texto original para não
+apagar a evolução; 5.9.3 não é apresentada como versão atual do monorepo.
+
 Versões consultadas diretamente no registro npm; módulos mobile conferidos no bundledNativeModules.json do pacote Expo 58.0.16. Dependências diretas fixadas; a árvore resolvida está em package-lock.json.
 
 | Ferramenta                                | Versão escolhida           |
