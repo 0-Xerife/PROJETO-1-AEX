@@ -6,13 +6,17 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
+    "./training": {
+      "types": "./src/training.ts"
+    },
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "src/training.ts"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

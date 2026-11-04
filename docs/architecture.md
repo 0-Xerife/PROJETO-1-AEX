@@ -1,5 +1,21 @@
 # Arquitetura
 
+## Contexto após a Fase 4
+
+O [README principal](../README.md#7-arquitetura-e-tecnologias) é a referência
+consolidada. A Fase 4 implementou experiência mobile, persistência local e admin
+demonstrativo. `TrainingService` e `AdminService` usam mocks independentes;
+não há sincronização mobile–admin. A API ainda oferece apenas liveness.
+
+`@aex/types/training` passou a expor contratos somente de tipos a partir do fonte;
+os exports principais dos pacotes continuam orientados ao `dist`. Essa evolução
+não importa código de um app no outro. Banco, autenticação, módulos de negócio
+e hospedagem seguem planejados.
+
+As seções seguintes registram a fundação da Fase 3. A referência histórica à
+“Fase 4” para infraestrutura foi substituída pelo escopo de experiência e mocks,
+sem significar que PostgreSQL/Prisma ou Supabase Auth tenham sido implementados.
+
 ## Implementado na Fase 3
 
 Monorepo privado com npm workspaces e um único lockfile. Turborepo ordena tarefas; cada app mantém suas ferramentas convencionais.

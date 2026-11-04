@@ -1,0 +1,30 @@
+import { router, useLocalSearchParams } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ExercisePlayer } from '../../components/exercises/ExercisePlayer';
+import { Button, Header, Screen } from '../../components/ui';
+import { colors } from '../../theme';
+import { useProgress } from '../../progression/ProgressProvider';
+
+export default function ExerciseScreen() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { exercises, isCompleted } = useProgress();
+  const index = exercises.findIndex((exercise) => exercise.id === id);
+  const exercise = exercises[index];
+  const next = exercises.find((item) => item.moduleId === exercise?.moduleId && item.id !== id && !isCompleted(item.id));
+  const exit = () => router.replace('/atividades');
+
+  return (
+    <SafeAreaView edges={['bottom']} style={{ flex: 1, backgroundColor: colors.background }}>
+      {exercise ? (
+        <ExercisePlayer key={exercise.id} exercise={exercise} position={index + 1} total={exercises.length}
+          onExit={exit} onModuleSummary={() => router.replace(`/conclusao/${exercise.moduleId}`)}
+          {...(next ? { onNext: () => router.replace(`/exercicio/${next.id}`) } : {})} />
+      ) : (
+        <Screen>
+          <Header eyebrow="ATIVIDADES" title="Exercício não encontrado" description="Escolha uma das práticas disponíveis na lista de atividades." />
+          <Button label="Ver atividades" onPress={exit} />
+        </Screen>
+      )}
+    </SafeAreaView>
+  );
+}
