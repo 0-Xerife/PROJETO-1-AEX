@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test:exercises": "node --experimental-strip-types --test tests/exercises.test.mjs",
+    "test:progression": "node --experimental-strip-types --test tests/progression.test.mjs",
     "doctor": "expo-doctor",
     "patch:dependencies": "patch-package --error-on-fail"
   },

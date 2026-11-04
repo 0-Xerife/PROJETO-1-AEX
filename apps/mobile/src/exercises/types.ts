@@ -7,6 +7,7 @@ export type ExerciseOption = {
 export type Exercise = {
   id: string;
   moduleId: string;
+  category: 'phishing' | 'social-engineering';
   title: string;
   introduction: string;
   scenario: {

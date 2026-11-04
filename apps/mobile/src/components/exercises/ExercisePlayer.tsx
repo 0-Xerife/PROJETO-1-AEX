@@ -10,15 +10,20 @@ import { AnswerOptions } from './AnswerOptions';
 import { ExerciseScenario } from './ExerciseScenario';
 import { ExerciseProgress } from './ExerciseProgress';
 import { ExerciseTransition, FeedbackSymbol, useExerciseReducedMotion } from './motion';
+import { useProgress } from '../../progression/ProgressProvider';
+import { POINTS_PER_EXERCISE } from '../../progression/progression';
 
-export function ExercisePlayer({ exercise, position, total, onExit, onNext }: {
+export function ExercisePlayer({ exercise, position, total, onExit, onNext, onModuleSummary }: {
   exercise: Exercise;
   position: number;
   total: number;
   onExit: () => void;
   onNext?: () => void;
+  onModuleSummary: () => void;
 }) {
   const reducedMotion = useExerciseReducedMotion();
+  const progress = useProgress();
+  const moduleCompleted = progress.modules.find((module) => module.id === exercise.moduleId)?.status === 'completed';
   const [state, dispatch] = useReducer(
     (current: ExerciseState, action: ExerciseAction) => transitionExercise(exercise, current, action),
     initialExerciseState,
@@ -62,7 +67,10 @@ export function ExercisePlayer({ exercise, position, total, onExit, onNext }: {
             <Text accessibilityRole="header" style={textStyles.heading}>Para lembrar</Text>
             <Text style={textStyles.body}>{exercise.takeaway}</Text>
           </Card>
-          <Button label="Continuar" onPress={() => dispatch({ type: 'continue' })} />
+          <Button label="Continuar" onPress={() => {
+            progress.complete(exercise.id, state.selectedId);
+            dispatch({ type: 'continue' });
+          }} />
         </>
       ) : (
         <>
@@ -72,12 +80,15 @@ export function ExercisePlayer({ exercise, position, total, onExit, onNext }: {
             <Text accessibilityRole="header" style={textStyles.heading}>Mais um cuidado para o dia a dia</Text>
             <Text style={textStyles.body}>{exercise.takeaway}</Text>
             <Text style={textStyles.detail}>Você terminou esta prática e conferiu a explicação. Pode repetir quantas vezes quiser.</Text>
+            <Text style={textStyles.body}>{POINTS_PER_EXERCISE} pontos registrados para esta atividade.</Text>
+            <Text style={textStyles.detail}>A recompensa vale pela conclusão. Repetir esta atividade não soma novos pontos.</Text>
           </Card>
-          {onNext ? <Button label="Próximo exercício" onPress={onNext} /> : <Button label="Concluir prática" onPress={onExit} />}
+          {moduleCompleted ? <Button label="Ver conclusão do módulo" onPress={onModuleSummary} />
+            : onNext ? <Button label="Próximo exercício" onPress={onNext} /> : <Button label="Concluir prática" onPress={onExit} />}
           <Button label="Praticar novamente" secondary onPress={() => dispatch({ type: 'restart' })} />
         </>
       )}
-      <Text style={uiStyles.note}>Prática demonstrativa, sem pontuação. As respostas não são salvas ao sair e não alteram o progresso da jornada.</Text>
+      <Text style={uiStyles.note}>Pontos demonstrativos de aprendizagem: não medem sua segurança digital real. O progresso dura apenas esta sessão.</Text>
       </ExerciseTransition>
     </Screen>
   );

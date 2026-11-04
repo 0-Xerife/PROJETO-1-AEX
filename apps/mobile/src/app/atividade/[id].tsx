@@ -1,13 +1,15 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Badge, Button, Card, Header, Screen, uiStyles } from '../../components/ui';
-import { modules } from '../../data/learning';
+import { Badge, Button, Card, Header, ProgressBar, Screen, uiStyles } from '../../components/ui';
+import { useProgress } from '../../progression/ProgressProvider';
+import { LocalProgressNote } from '../../components/LearningRewards';
 import { exercises } from '../../data/exercises';
 import { colors, textStyles } from '../../theme';
 
 export default function ActivityScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { modules, isCompleted } = useProgress();
   const module = modules.find((item) => item.id === id);
   const availableExercises = exercises.filter((exercise) => exercise.moduleId === id);
   const goBack = () => {
@@ -28,8 +30,8 @@ export default function ActivityScreen() {
           <>
             <Header eyebrow="PRÓXIMOS PASSOS" title={module.title} />
             <Card>
-              <Badge label="Módulo bloqueado" icon="lock" />
-              <Text style={textStyles.body}>Este tema vem depois dos módulos anteriores. Veja seu próximo passo na jornada.</Text>
+              <Badge label="Em breve" icon="book" />
+              <Text style={textStyles.body}>As atividades deste tema ainda estão em preparação. Explore o módulo disponível na jornada.</Text>
               <Button label="Ver minha jornada" icon="journey" onPress={() => router.replace('/jornada')} />
             </Card>
           </>
@@ -37,6 +39,8 @@ export default function ActivityScreen() {
           <>
             <Header eyebrow="CONHEÇA O TEMA" title={module.title} description={module.description} />
             <Badge label={`Cerca de ${module.minutes} minutos por atividade`} icon="clock" />
+            <ProgressBar label="Exercícios concluídos" completed={module.completed} total={module.lessons} />
+            {module.status === 'completed' ? <Button label="Ver conclusão do módulo" onPress={() => router.push(`/conclusao/${module.id}`)} /> : null}
             <Card>
               <Text accessibilityRole="header" style={textStyles.heading}>O que vamos aprender</Text>
               {module.topics.map((topic, index) => (
@@ -50,9 +54,10 @@ export default function ActivityScreen() {
                 <Text accessibilityRole="header" style={textStyles.heading}>Vamos praticar?</Text>
                 {availableExercises.map((exercise) => (
                   <Card key={exercise.id}>
+                    <Badge label={isCompleted(exercise.id) ? 'Concluído' : 'A concluir'} icon={isCompleted(exercise.id) ? 'check' : 'book'} />
                     <Text accessibilityRole="header" style={textStyles.heading}>{exercise.title}</Text>
                     <Text style={textStyles.detail}>{exercise.introduction}</Text>
-                    <Button label="Iniciar exercício" hint={`Abre ${exercise.title}`}
+                    <Button label={isCompleted(exercise.id) ? 'Praticar novamente' : 'Iniciar exercício'} hint={`Abre ${exercise.title}`}
                       onPress={() => router.push(`/exercicio/${exercise.id}`)} />
                   </Card>
                 ))}
@@ -63,6 +68,7 @@ export default function ActivityScreen() {
               <Text style={textStyles.detail}>Por enquanto, explore a jornada. Seu progresso de demonstração permanece igual.</Text>
             </Card>}
             <Button label="Ver minha jornada" icon="journey" onPress={() => router.replace('/jornada')} />
+            <LocalProgressNote />
           </>
         )}
       </Screen>

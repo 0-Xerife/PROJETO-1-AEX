@@ -1,15 +1,17 @@
 import { Fragment } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ModuleCard } from '../../components/ModuleCard';
-import { Card, Header, ProgressBar, Screen, uiStyles } from '../../components/ui';
-import { modules, progress } from '../../data/learning';
+import { Card, Header, ProgressBar, Screen } from '../../components/ui';
+import { useProgress } from '../../progression/ProgressProvider';
+import { LocalProgressNote } from '../../components/LearningRewards';
 import { colors, textStyles } from '../../theme';
 
 export default function JourneyScreen() {
+  const { modules, summary: progress } = useProgress();
   return (
     <Screen>
       <Header eyebrow="SUA JORNADA" title="Pequenos passos, novas conquistas"
-        description="Siga os módulos na ordem. Você pode voltar para rever o que já aprendeu." />
+        description="Explore o módulo disponível. Você pode voltar para rever o que já aprendeu." />
       <Card>
         <Text accessibilityRole="header" style={textStyles.heading}>Caminho da confiança digital</Text>
         <ProgressBar label="Atividades concluídas" {...progress} />
@@ -22,7 +24,7 @@ export default function JourneyScreen() {
           </Fragment>
         ))}
       </View>
-      <Text style={uiStyles.note}>Jornada de demonstração. O progresso não muda nesta prévia.</Text>
+      <LocalProgressNote />
     </Screen>
   );
 }

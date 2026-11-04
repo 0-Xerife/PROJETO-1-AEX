@@ -3,6 +3,7 @@ import type { Exercise } from '../exercises/types';
 export const exercises: readonly Exercise[] = [
   {
     id: 'sms-suspeito',
+    category: 'phishing',
     moduleId: 'mensagens',
     title: 'SMS suspeito',
     introduction: 'Uma mensagem inesperada chegou. Leia com calma antes de decidir o que fazer.',
@@ -24,6 +25,7 @@ export const exercises: readonly Exercise[] = [
   },
   {
     id: 'link-fraudulento',
+    category: 'phishing',
     moduleId: 'mensagens',
     title: 'Link fraudulento',
     introduction: 'O nome de uma loja pode aparecer em um endereço que não pertence a ela.',
@@ -45,6 +47,7 @@ export const exercises: readonly Exercise[] = [
   },
   {
     id: 'falsa-central',
+    category: 'social-engineering',
     moduleId: 'mensagens',
     title: 'Falsa central bancária',
     introduction: 'Alguém liga dizendo ser de uma central. Você não precisa decidir nada com pressa.',
