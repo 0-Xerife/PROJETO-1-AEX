@@ -1,9 +1,43 @@
 {
-  "name": "simulador-antifraude-g9",
+  "name": "aex",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
-  "description": "Protótipo educativo de prevenção de golpes para pessoas idosas",
-  "engines": { "node": ">=22" },
-  "scripts": { "start": "node server.js", "test": "node --test" }
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": ">=22.14.0 <23",
+    "npm": ">=10.9.2 <11"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "npm --prefix examples/prototype start",
+    "dev": "turbo watch dev",
+    "dev:api": "turbo watch dev --filter=@aex/api",
+    "dev:admin": "turbo watch dev --filter=@aex/admin",
+    "dev:mobile": "turbo watch dev --filter=@aex/mobile",
+    "dev:prototype": "npm --prefix examples/prototype start",
+    "build": "turbo run build",
+    "build:packages": "turbo run build --filter=@aex/types --filter=@aex/validation",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint && eslint .",
+    "lint:fix": "turbo run lint:fix && eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "test": "npm run test:prototype && turbo run test",
+    "test:prototype": "npm --prefix examples/prototype test",
+    "verify:prototype": "node scripts/verify-prototype.mjs",
+    "mobile:doctor": "npm run doctor --workspace=@aex/mobile",
+    "patch:dependencies": "patch-package --error-on-fail && npm run patch:dependencies --workspace=@aex/mobile",
+    "postinstall": "npm run patch:dependencies"
+  },
+  "devDependencies": {
+    "@aex/config": "0.1.0",
+    "eslint": "9.39.5",
+    "patch-package": "8.0.1",
+    "prettier": "3.9.10",
+    "turbo": "2.11.10",
+    "typescript": "6.0.3"
+  }
 }

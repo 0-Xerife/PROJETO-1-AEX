@@ -1,0 +1,39 @@
+diff --git a/node_modules/react-native-safe-area-context/lib/typescript/src/SafeArea.types.d.ts b/node_modules/react-native-safe-area-context/lib/typescript/src/SafeArea.types.d.ts
+index b56a2b8..55dfde0 100644
+--- a/node_modules/react-native-safe-area-context/lib/typescript/src/SafeArea.types.d.ts
++++ b/node_modules/react-native-safe-area-context/lib/typescript/src/SafeArea.types.d.ts
+@@ -33,5 +33,5 @@ export interface NativeSafeAreaViewProps extends ViewProps {
+     mode?: 'padding' | 'margin';
+     edges?: Edges;
+ }
+-export type NativeSafeAreaViewInstance = InstanceType<typeof NativeSafeAreaView>;
++export type NativeSafeAreaViewInstance = React.ComponentRef<typeof NativeSafeAreaView>;
+ //# sourceMappingURL=SafeArea.types.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/react-native-safe-area-context/lib/typescript/src/SafeAreaView.d.ts b/node_modules/react-native-safe-area-context/lib/typescript/src/SafeAreaView.d.ts
+index 067768c..8967eae 100644
+--- a/node_modules/react-native-safe-area-context/lib/typescript/src/SafeAreaView.d.ts
++++ b/node_modules/react-native-safe-area-context/lib/typescript/src/SafeAreaView.d.ts
+@@ -1,5 +1,5 @@
+ import * as React from 'react';
+-import type { NativeSafeAreaViewProps } from './SafeArea.types';
++import type { NativeSafeAreaViewProps, NativeSafeAreaViewInstance } from './SafeArea.types';
+ export type SafeAreaViewProps = NativeSafeAreaViewProps;
+-export declare const SafeAreaView: React.ForwardRefExoticComponent<NativeSafeAreaViewProps & React.RefAttributes<React.Component<import("./specs/NativeSafeAreaView").NativeProps, {}, any> & import("react-native").ReactNativeElement>>;
++export declare const SafeAreaView: React.ForwardRefExoticComponent<NativeSafeAreaViewProps & React.RefAttributes<NativeSafeAreaViewInstance>>;
+ //# sourceMappingURL=SafeAreaView.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/react-native-safe-area-context/lib/typescript/src/specs/NativeSafeAreaView.d.ts b/node_modules/react-native-safe-area-context/lib/typescript/src/specs/NativeSafeAreaView.d.ts
+index 7dc923a..5fe06a9 100644
+--- a/node_modules/react-native-safe-area-context/lib/typescript/src/specs/NativeSafeAreaView.d.ts
++++ b/node_modules/react-native-safe-area-context/lib/typescript/src/specs/NativeSafeAreaView.d.ts
+@@ -1,7 +1,7 @@
+-import type { WithDefault } from 'react-native/Libraries/Types/CodegenTypes';
++import type { CodegenTypes } from 'react-native';
+ import type { ViewProps, HostComponent } from 'react-native';
+ export interface NativeProps extends ViewProps {
+-    mode?: WithDefault<'padding' | 'margin', 'padding'>;
++    mode?: CodegenTypes.WithDefault<'padding' | 'margin', 'padding'>;
+     edges?: Readonly<{
+         top: string;
+         right: string;

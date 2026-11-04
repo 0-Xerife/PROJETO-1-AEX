@@ -1,0 +1,10 @@
+{
+  "extends": "@aex/config/typescript/node.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "isolatedModules": true,
+    "types": ["node", "jest"]
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
+}

@@ -1,0 +1,9 @@
+examples/prototype/**
+node_modules/**
+**/dist/**
+**/.next/**
+**/.expo/**
+.turbo/**
+coverage/**
+package-lock.json
+**/next-env.d.ts

@@ -1,0 +1,7 @@
+{
+  "extends": "@aex/config/typescript/node.json",
+  "compilerOptions": {
+    "types": []
+  },
+  "include": ["src/**/*.ts"]
+}

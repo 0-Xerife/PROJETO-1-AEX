@@ -1,0 +1,8 @@
+{
+  "extends": "@aex/config/typescript/node.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["app.config.ts"]
+}
